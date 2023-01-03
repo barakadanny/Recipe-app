@@ -7,8 +7,7 @@ class RecipesController < ApplicationController
   # GET /recipes or /recipes.json
   def index
     if current_user
-      @recipes = current_user.recipes
-      @recipes = Recipe.where(public: true)
+      @recipes = Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
     else
       @recipes = []
     end

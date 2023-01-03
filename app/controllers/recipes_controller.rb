@@ -6,11 +6,6 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    # if current_user
-    #   @recipes = Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
-    # else
-    #   @recipes = []
-    # end
     @recipes = if current_user
                  Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
                else
@@ -45,23 +40,34 @@ class RecipesController < ApplicationController
 
   # PATCH/PUT /recipes/1 or /recipes/1.json
   def update
+    @recipe = Recipe.find(params[:id])
     respond_to do |format|
-      if @recipe.update(recipe_params)
-        format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
+      if @recipe.user_id != current_user.id
+        format.html { redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        if @recipe.update(recipe_params)
+          format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   # DELETE /recipes/1 or /recipes/1.json
   def destroy
-    @recipe.destro
-
-    respond_to do |format|
-      format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
-      format.json { head :no_content }
+    @recipe = Recipe.find(params[:id])
+    
+    if @recipe.user_id != current_user.id
+      redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.'
+    else
+      # @recipe.destroy
+      @recipe.destroy
+      respond_to do |format|
+        format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
+      end
     end
+
   end
 
   private

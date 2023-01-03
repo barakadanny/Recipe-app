@@ -6,11 +6,16 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    if current_user
-      @recipes = Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
-    else
-      @recipes = []
-    end
+    # if current_user
+    #   @recipes = Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
+    # else
+    #   @recipes = []
+    # end
+    @recipes = if current_user
+                 Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
+               else
+                 []
+               end
   end
 
   # GET /recipes/1 or /recipes/1.json

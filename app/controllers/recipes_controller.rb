@@ -6,7 +6,11 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = if current_user
+                 Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
+               else
+                 []
+               end
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -23,6 +27,7 @@ class RecipesController < ApplicationController
   # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user_id = current_user.id
 
     respond_to do |format|
       if @recipe.save
@@ -33,30 +38,39 @@ class RecipesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recipes/1 or /recipes/1.json
+  # rubocop:disable Style/NegatedIfElseCondition
   def update
+    @recipe = Recipe.find(params[:id])
     respond_to do |format|
-      if @recipe.update(recipe_params)
-        format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
+      if @recipe.user_id != current_user.id
+        format.html { redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        # rubocop:disable Style/IfInsideElse
+        if @recipe.update(recipe_params)
+          format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+        # rubocop:enable Style/IfInsideElse
       end
     end
   end
 
-  # DELETE /recipes/1 or /recipes/1.json
   def destroy
-    @recipe.destro
-
-    respond_to do |format|
-      format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
-      format.json { head :no_content }
+    @recipe = Recipe.find(params[:id])
+    if @recipe.user_id != current_user.id
+      redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.'
+    else
+      @recipe.destroy
+      respond_to do |format|
+        format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
+      end
     end
   end
+  # rubocop:enable Style/NegatedIfElseCondition
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = Recipe.find(params[:id])
   end

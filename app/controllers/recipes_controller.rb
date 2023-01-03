@@ -6,7 +6,11 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    if current_user
+      @recipes = current_user.recipes
+    else
+      @recipes = Recipe.where(public: true)
+    end
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -23,6 +27,7 @@ class RecipesController < ApplicationController
   # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+    @recipe.user_id = current_user.id
 
     respond_to do |format|
       if @recipe.save

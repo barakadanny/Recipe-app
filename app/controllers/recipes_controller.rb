@@ -8,6 +8,7 @@ class RecipesController < ApplicationController
   def index
     if current_user
       @recipes = current_user.recipes
+      @recipes = Recipe.where(public: true)
     else
       @recipes = Recipe.where(public: true)
     end

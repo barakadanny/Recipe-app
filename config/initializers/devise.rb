@@ -1,5 +1,17 @@
 # frozen_string_literal: true
+class TurboFailureApp < Devise::FailureApp
+  def respond
+    if request_format == :turbo_stream
+      redirect
+    else
+      super
+    end
+  end
 
+  def skip_format?
+    %w[html turbo_stream */*].include? request_format.to_s
+  end
+end
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -14,7 +26,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '4bdaad736ea76045faac196d2fab6cc6ab4f664748a4a40d5a713c2d38d4d136307b745fb9fa74d13879cbebf8705d24144d5aef59967d4fb7d2dcdbafa593fc'
+  # config.secret_key = '4b8924c7a615832e7e3804cb9c7624e5395e33e5d18f4e7c63cf56125cc4b9cc24f8f2d6116e0e3fdb0929c2468fc1399e6865ad95365848f30a865f40e3c7ce'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -70,6 +82,7 @@ Devise.setup do |config|
   # given strategies, for example, `config.params_authenticatable = [:database]` will
   # enable it only for database (email + password) authentication.
   # config.params_authenticatable = true
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   # Tell if authentication through HTTP Auth is enabled. False by default.
   # It can be set to an array that will enable http authentication only for the
@@ -126,7 +139,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'c852ea88d618127f759e81bb481e9e997aa4ea629cd7e5638161437bca62088e13ab3f760c47e9e7270d51791681df385605b1854fe3e27ef6431c98d745ce09'
+  # config.pepper = 'c1ef46d3a919fca7960b0a4465279e84ea469d1fceba0fcf83c1e23ca209c6e723329a01138a6cde11897e6616390e2961d5f029144e754c01997510598ed3e9'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -281,6 +294,9 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+  config.warden do |manager|
+    manager.failure_app = TurboFailureApp
+  end 
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

@@ -10,7 +10,7 @@ class RecipesController < ApplicationController
       @recipes = current_user.recipes
       @recipes = Recipe.where(public: true)
     else
-      @recipes = Recipe.where(public: true)
+      @recipes = []
     end
   end
 

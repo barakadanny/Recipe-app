@@ -1,0 +1,12 @@
+<h2>create a new Food</h2>
+<%= form_with model: @food, url: foods_path, method: :post do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name, placeholder: 'Name' %><br><br>
+  <%= form.label :measurement_unit %>
+  <%= form.text_field :measurement_unit, placeholder: 'Measurement unit' %><br><br>
+  <%= form.label :quantity %>
+  <%= form.text_field :quantity, placeholder: 'Quantity' %><br><br>
+  <%= form.label :price %>
+  <%= form.text_field :price, placeholder: 'Price' %><br><br>
+  <%= form.submit 'Create Food'%>
+<% end %>

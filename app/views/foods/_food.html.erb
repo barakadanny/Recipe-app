@@ -1,0 +1,8 @@
+<div class=""> 
+  <div class="">  
+    <p>Name<%= food.name %> </p>
+    <p>measurement_unit <%= food.measurement_unit%> </p> 
+    <p>Unit price <%= food.price%> </p> 
+    <p><%= button_to "Delete", food_path(food.id), method: :delete %></p>
+    </div>
+</div>

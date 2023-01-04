@@ -1,0 +1,14 @@
+<section>
+<h1>Index foods</h1>
+<ul>
+ <% if @food.empty? %>
+     <h3 class="">You have no food yet!</h3>
+     <p class="">Try adding from the Add food button below</p>
+ <% else %>
+ <% @food.each do |fd| %>
+     <li> <%= render 'food', food:fd %> </li>
+ <% end %>
+ <%end%>
+<button> <%= link_to 'Add Food' , new_food_path  %> </button>
+</ul>
+</section>

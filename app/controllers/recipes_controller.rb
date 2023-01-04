@@ -16,6 +16,11 @@ class RecipesController < ApplicationController
   # GET /recipes/1 or /recipes/1.json
   def show; end
 
+  # Get /Public recipes
+  def public_recipes
+    @recipes=Recipe.where(public: true)
+  end
+
   # GET /recipes/new
   def new
     @recipe = Recipe.new
@@ -67,8 +72,8 @@ class RecipesController < ApplicationController
       end
     end
   end
-  # rubocop:enable Style/NegatedIfElseCondition
 
+  # rubocop:enable Style/NegatedIfElseCondition
   private
 
   def set_recipe

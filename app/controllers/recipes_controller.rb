@@ -9,10 +9,10 @@ class RecipesController < ApplicationController
   # GET /recipes or /recipes.json
   def index
     @recipes = if current_user
-                  Recipe.where(user_id: current_user.id)
-                else
-                  []
-              end
+                 Recipe.where(user_id: current_user.id)
+               else
+                 []
+               end
   end
 
   # GET /recipes/1 or /recipes/1.json

@@ -1,4 +1,5 @@
 class RecipeFoodsController < ApplicationController
+  access user: :all, admin: :all
     def index
         @foods = current_user.recipe_foods.includes([:food])
     end

@@ -1,4 +1,5 @@
 class FoodsController < ApplicationController
+  access user: :all, admin: :all
     def index
         @user=current_user
         @food=Food.all

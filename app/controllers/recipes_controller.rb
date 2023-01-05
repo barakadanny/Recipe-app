@@ -4,6 +4,8 @@ class RecipesController < ApplicationController
                                       update
                                       destroy]
 
+  access all: [:index], user: :all, admin: :all
+
   # GET /recipes or /recipes.json
   def index
     @recipes = if current_user

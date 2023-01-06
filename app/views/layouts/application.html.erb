@@ -12,7 +12,10 @@
 
   <body>
     <%# <p class="notice"><%= notice %></p> 
+    <%= render 'shared/navbar'%>
+    <div  class="container">
     <p class="alert"><%= alert %></p>
     <%= yield %>
+    </div>
   </body>
 </html>

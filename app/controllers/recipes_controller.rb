@@ -6,7 +6,6 @@ class RecipesController < ApplicationController
 
   access all: [:index], user: :all, admin: :all
 
-  # GET /recipes or /recipes.json
   def index
     @recipes = if current_user
                  Recipe.where(user_id: current_user.id)
@@ -15,7 +14,6 @@ class RecipesController < ApplicationController
                end
   end
 
-  # GET /recipes/1 or /recipes/1.json
   def show
     begin
       @recipe = Recipe.joins(:foods).find(params[:id])
@@ -24,21 +22,22 @@ class RecipesController < ApplicationController
     end
   end
 
-  # Get /Public recipes
   def public_recipes
     @recipes = Recipe.includes(:user).where(public: true)
     @recipe_counts = RecipeFood.group(:recipe_id).count
+
+    @total_prices = {}
+    @recipes.each do |recipe|
+      @total_prices[recipe.id] = recipe.foods.sum { |food| food.price * recipe.recipe_foods.find_by(food_id: food.id).quantity }
+    end
   end
 
-  # GET /recipes/new
   def new
     @recipe = Recipe.new
   end
 
-  # GET /recipes/1/edit
   def edit; end
 
-  # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
@@ -81,8 +80,8 @@ class RecipesController < ApplicationController
       end
     end
   end
-
   # rubocop:enable Style/NegatedIfElseCondition
+
   private
 
   def set_recipe

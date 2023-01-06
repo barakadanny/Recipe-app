@@ -12,6 +12,8 @@
         </div>
         <div class="">
           <p class="">Total food items: <%= @recipe_counts[recipe.id] || 0 %> </p> 
+          <p class="">Total cost: <%= @total_prices[recipe.id] || 0 %> </p>
         </div> 
+
     </div>
   <% end %>

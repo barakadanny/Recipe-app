@@ -16,11 +16,18 @@ class RecipesController < ApplicationController
   end
 
   # GET /recipes/1 or /recipes/1.json
-  def show; end
+  def show
+    # @recipe_foods=RecipeFood.where(recipe_id: params[:id])
+    @recipe = Recipe.find(params[:id])
+    # @recipe_foods = @recipe.recipe_foods.includes(:food)
+  end
 
   # Get /Public recipes
   def public_recipes
     @recipes = Recipe.includes(:user).where(public: true)
+    @recipe_foods=RecipeFood.all
+    # @food=Food.where
+    # @foods = current_user.recipe_foods.includes([:food])
   end
 
   # GET /recipes/new

@@ -2,8 +2,8 @@
     <h1 class="">Shopping List</h1>
     <div class="">
      <h6>Amount of food items to buy: 
-     <%=@recipe.recipe_foods.each do |r| %>
-         <%r%>
+     <%@recipe.recipe_foods.each do |r| %>
+         <%=r.quantity%>
      <%end%>
      </h6>
      <h6>Total value of food needed: $</h6>

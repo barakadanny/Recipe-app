@@ -4,6 +4,10 @@ class FoodsController < ApplicationController
     @user = current_user
     @food = Food.all
   end
+ 
+ def new
+  @food=Food.new(food_params)
+ end
 
   def create
     @food = Food.new(food_params)

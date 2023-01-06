@@ -3,6 +3,7 @@ class RecipeFoodsController < ApplicationController
   def index
     # @recipe_foods=Recipe.recipe_foods.find(params[:recipe_id])
     @recipe=Recipe.joins(:recipe_foods).find(params[:recipe_id])
+    @food=Recipe.joins(:foods).find(params[:recipe_id])
   end
 
   def new

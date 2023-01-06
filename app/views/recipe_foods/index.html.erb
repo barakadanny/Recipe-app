@@ -5,7 +5,10 @@
      <%@recipe.recipe_foods.each do |recipe_food| %>
          <%=recipe_food.quantity%>
      <%end%>
-     
+     <%@food.foods.each do |food|%>
+     <%=food.name%>
+     <%=food.price%>
+     <%end%>
      </h6>
      <h6>Total value of food needed: $</h6>
     </div>

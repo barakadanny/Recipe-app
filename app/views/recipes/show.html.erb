@@ -21,7 +21,7 @@
     </thead>
     <tbody>
     <% @recipe.foods.each do |food| %>
-      <%=render 'shared/table', name:food.name%>
+      <%=render 'shared/table', name:food.name, quantity: food.quantity%>
     <% end %>
     </tbody>
     </table>

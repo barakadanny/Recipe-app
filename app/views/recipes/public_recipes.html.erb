@@ -1,18 +1,17 @@
- <%= render 'shared/login' %>
- <h1 class="">Public Recipes</h1>
-  
+ <h1 class="text-center pb-3">Public Recipes</h1>
+
   <% if @recipes.empty? %>
   <p class="">Sorry, there are no public recipes at the moment. Check back later.</p>
   <% end %>
   <% @recipes.each do |recipe| %>
-    <div class="">
-        <div class="">
-          <h2><%= link_to recipe.name, recipe_path(recipe.id) %></h2>
-          <p class="">by: <%= recipe.user.name %></p>
+    <div class="border border-dark mb-2 pt-2">
+        <div class="ps-5">
+          <h2><%= link_to recipe.name, recipe_path(recipe.id), class: "text-decoration-none" %></h2>
+          <p class="fs-3">by: <%= recipe.user.name %></p>
         </div>
-        <div class="">
-          <p class="">Total food items: <%= @recipe_counts[recipe.id] || 0 %> </p> 
-          <p class="">Total cost: <%= @total_prices[recipe.id] || 0 %> </p>
+        <div class="text-end pe-5">
+          <p class="fs-5 fw-smbold">Total food items: <%= @recipe_counts[recipe.id] || 0 %> </p> 
+          <p class="fs-5">Total cost: <%= @total_prices[recipe.id] || 0 %> </p>
         </div> 
 
     </div>

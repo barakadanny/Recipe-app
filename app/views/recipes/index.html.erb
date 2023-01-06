@@ -1,15 +1,15 @@
-<%= render 'shared/login'%>
 <% if !@recipes.empty?%>
- <h1>Recipes</h1>
- <div id="recipes">
+ <h1 class="text-center pb-2">Recipes</h1>
+ <div id="recipes" class="text-center">
   <% @recipes.each do |recipe| %>
-    <%= render recipe %>
-    <p>
-      <%= link_to "Show this recipe", recipe %>
-    </p>
+  <div class="border border-dark mb-3">
+      <%= render recipe %>
+      <p> <%= button_to "Destroy this recipe", recipe, method: :delete, class: "btn btn-outline-dark" %><br>
+      </p>
+    </div>
   <% end %>
  </div>
  <% if user_signed_in? %>
-   <%= link_to "New recipe", new_recipe_path %>
+   <%= link_to "New recipe", new_recipe_path , class: "text-decoration-none" %>
  <% end %>
 <%end%>

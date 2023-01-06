@@ -11,8 +11,7 @@
           <p class="">by: <%= recipe.user.name %></p>
         </div>
         <div class="">
-          <%# <p class="">Total food items: <%= @recipe_foods.size %></p> 
-          <%= @recipe_counts[recipe.id] %>
+          <p class="">Total food items: <%= @recipe_counts[recipe.id] || 0 %> </p> 
         </div> 
     </div>
   <% end %>

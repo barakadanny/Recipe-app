@@ -1,9 +1,20 @@
 class RecipeFoodsController < ApplicationController
   access user: :all, admin: :all
   def index
-    # @recipe_foods=Recipe.recipe_foods.find(params[:recipe_id])
     @recipe=Recipe.joins(:recipe_foods).find(params[:recipe_id])
     @food=Recipe.joins(:foods).find(params[:recipe_id])
+
+    @ar_quantity=[]
+    @ar_name=[]
+    @ar_price=[]
+
+     @recipe.recipe_foods.each do |recipe_food| 
+       @ar_quantity<<recipe_food.quantity
+       food = Food.find(recipe_food.food_id) 
+       @ar_name<<food.name
+       total_price = recipe_food.quantity * food.price 
+       @ar_price<<total_price 
+      end 
   end
 
   def new

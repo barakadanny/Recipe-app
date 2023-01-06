@@ -3,7 +3,7 @@
 <%= render @recipe %>
 
 <div>
-  <% if @recipe.user_id == current_user.id %>
+  <% if @recipe.is_a?(Recipe) && @recipe.user_id == current_user.id %>
     <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
     <%= button_to "Destroy this recipe", @recipe, method: :delete %>
     <% @recipe.foods.each do |food| %>

@@ -1,6 +1,8 @@
 class RecipeFoodsController < ApplicationController
   access user: :all, admin: :all
   def index
+    # @recipe_foods=Recipe.recipe_foods.find(params[:recipe_id])
+    @recipe=Recipe.joins(:recipe_foods).find(params[:recipe_id])
   end
 
   def new

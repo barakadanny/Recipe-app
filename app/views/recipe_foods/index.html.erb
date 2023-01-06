@@ -1,12 +1,12 @@
 <div class="">
     <h1 class="">Shopping List</h1>
     <div class="">
-     <h6>Amount of food items to buy: <%=@foods.size %></h6>
-     <% sum = 0 %>
-     <% @foods.each do |food| %>
-        <% sum += food.food.price * food.quantity %>
-     <% end %>
-     <h6>Total value of food needed: $<%= sum %></h6>
+     <h6>Amount of food items to buy: 
+     <%=@recipe.recipe_foods.each do |r| %>
+         <%r%>
+     <%end%>
+     </h6>
+     <h6>Total value of food needed: $</h6>
     </div>
   <table class="">
   <thead>
@@ -17,14 +17,7 @@
     </tr>
   </thead>
   <tbody>
-     <% @foods.each do |food| %>
-    <tr>
-      <td><%= food.food.name %></td>
-      <td><%= "#{food.food.quantity} #{food.food.measurement_unit}" %></td>
-      <td>$<%= food.food.price %></td>
-      </td>
-    </tr>
-     <% end %>
+
   </tbody>
 </table>
 </div>

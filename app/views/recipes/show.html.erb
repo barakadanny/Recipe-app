@@ -6,7 +6,9 @@
   <% if @recipe.user_id == current_user.id %>
     <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
     <%= button_to "Destroy this recipe", @recipe, method: :delete %>
-    <%# <%recipe_foods.foods.name%> 
+    <% @recipe.foods.each do |food| %>
+      <%= food.name %>
+    <% end %>
     <%= link_to 'Shopping List',recipe_recipe_foods_path(@recipe.id)%><br>
     <%= link_to 'Add Ingredients',new_recipe_recipe_food_path(@recipe.id)%><br>
   <% end %>

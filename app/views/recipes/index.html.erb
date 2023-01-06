@@ -1,5 +1,11 @@
 <% if !@recipes.empty?%>
  <h1 class="text-center pb-2">Recipes</h1>
+<div class="d-flex justify-content-end mb-2">
+ <% if user_signed_in? %>
+   <button  class="btn btn-success"><%= link_to "New recipe", new_recipe_path , class: "text-decoration-none text-white" %></button>
+ <% end %>
+ </div>
+
  <div id="recipes" class="text-center">
   <% @recipes.each do |recipe| %>
   <div class="border border-dark mb-3 d-flex gap-5">
@@ -11,7 +17,5 @@
   </div>
   <% end %>
  </div>
- <% if user_signed_in? %>
-   <%= link_to "New recipe", new_recipe_path , class: "text-decoration-none" %>
- <% end %>
+
 <%end%>

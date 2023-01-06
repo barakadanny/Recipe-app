@@ -20,6 +20,18 @@ class RecipesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       @recipe = Recipe.find(params[:id])
     end
+      # @recipe = Recipe.find(params[:id])
+      # @total_price = 0
+
+      # @recipe.recipe_foods.each do |recipe_food|
+      #   food = Food.find(recipe_food.food_id)
+      #   @total_price += recipe_food.quantity * food.price
+      # end
+      @recipe.foods.each do |food|
+        recipe_food = @recipe.recipe_foods.find_by(food_id: food.id)
+        total_price = food.price * recipe_food.quantity
+        # Now you can use total_price in your view to display the total price for each recipe food
+      end
   end
 
   def public_recipes

@@ -21,7 +21,8 @@
     </thead>
     <tbody>
     <% @recipe.foods.each do |food| %>
-      <%=render 'shared/table', name:food.name, quantity: food.quantity%>
+      <% total_price = food.price * food.quantity %>
+      <%=render 'shared/table', name:food.name, quantity: food.quantity, total_price: total_price%>
     <% end %>
     </tbody>
     </table>

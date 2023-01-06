@@ -1,11 +1,26 @@
-<div id="<%= dom_id recipe %>">
-  <p>
-    <strong>Name:</strong>
-    <%= recipe.name %>
-  </p>
-  <p>
-    <strong>Description:</strong>
-    <%= recipe.description %>
-  </p>
+ <p class="text-center fs-2 pb-2"><%= recipe.name %> </p>
 
+<div class="container text-center" id="<%= dom_id recipe %>">
+  <div class="row">
+    <div class="col">
+      <p class="fs-5 pb-2"><strong>Preparation time:</strong><%= recipe.preparation_time %></p>
+    </div>
+    <div class="col">
+      <p class="fs-5 pb-2"><strong>Public:</strong>
+      <% if !recipe.public%> 
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled" disabled>
+       <%else%>
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedDisabled" checked disabled>
+       <%end%>
+       </p>
+   </div>
+  </div>
+   <div class="row">
+    <div class="col">
+      <p class="fs-5 pb-2"><strong>Cooking time:</strong><%= recipe.cooking_time %></p>
+    </div>
+    <div class="col">
+   </div>
+  </div>
 </div>
+

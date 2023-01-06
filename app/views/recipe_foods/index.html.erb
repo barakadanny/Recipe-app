@@ -1,23 +1,23 @@
 <div class="">
-    <h1 class="">Shopping List</h1>
+    <h1 class="text-center">Shopping List</h1>
     <div class="">
      <p>Amount of food items to buy: <%=@food.foods.size%>
      </p>
      <br>
-      <%= render 'array', array:@ar_quantity%><br>
-      <%= render 'array', array:@ar_name%><br>
-      <%= render 'array', array:@ar_price%>
      <p>Total value of food needed: $</p>
     </div>
-  <table class="">
-  <thead>
+      <table class="table">
+    <thead>
     <tr>
-      <th class="">Food</th>
-      <th class="">Quantity</th>
-      <th class="">Price</th>
+      <th scope="col">Food</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Value</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
+     <%= render 'array', array:@ar_quantity%><br>
+      <%= render 'array', array:@ar_name%><br>
+      <%= render 'array', array:@ar_price%>
 
   </tbody>
 </table>

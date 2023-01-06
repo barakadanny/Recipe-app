@@ -27,9 +27,7 @@ class RecipesController < ApplicationController
   # Get /Public recipes
   def public_recipes
     @recipes = Recipe.includes(:user).where(public: true)
-    @recipe_foods=RecipeFood.all
-    # @food=Food.where
-    # @foods = current_user.recipe_foods.includes([:food])
+    @recipe_counts = RecipeFood.group(:recipe_id).count
   end
 
   # GET /recipes/new

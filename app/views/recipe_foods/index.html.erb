@@ -1,13 +1,14 @@
 <div class="">
     <h1 class="">Shopping List</h1>
     <div class="">
-     <h6>Amount of food items to buy: 
+     <h6>Amount of food items to buy: <%=@food.foods.size%>
+     <br>
      <%@recipe.recipe_foods.each do |recipe_food| %>
          <%=recipe_food.quantity%>
      <%end%>
      <%@food.foods.each do |food|%>
-     <%=food.name%>
-     <%=food.price%>
+       <%=food.name%>
+       <%=food.price%>
      <%end%>
      </h6>
      <h6>Total value of food needed: $</h6>

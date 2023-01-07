@@ -1,0 +1,6 @@
+<h1 class="text-center">Editing recipe</h1>
+<div class="d-flex justify-content-between mx-5 px-5">
+ <button class="btn btn-dark"> <%= link_to "Show this recipe", @recipe,class: "text-decoration-none text-white" %> </button>
+  <button class="btn btn-dark"><%= link_to "Back to recipes", recipes_path ,class: "text-decoration-none text-white" %></button>
+</div>
+<%= render "form", recipe: @recipe %>

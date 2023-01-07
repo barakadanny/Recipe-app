@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+<div class="d-flex justify-content-between">
+  <%= link_to "Back to recipes", recipes_path, class: "btn btn-dark" %>
+  <%= link_to "Edit this recipe", edit_recipe_path(@recipe), class: "btn btn-dark" %>
+  </div>
+<%= render @recipe %>
+<div class="text-center">
+  <% if @recipe.is_a?(Recipe) && @recipe.user_id == current_user.id %>
+    <div class="d-flex justify-content-between">
+    <%= link_to 'Shopping List',recipe_recipe_foods_path(@recipe.id), class: "btn btn-success"%>
+    <%= link_to 'Add Ingredients',new_recipe_recipe_food_path(@recipe.id), class: "btn btn-success"%>
+    </div>
+    <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Food</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Value</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @recipe.recipe_foods.each do |recipe_food|%>
+    <%@total_price=0%>
+      <%   food = Food.find(recipe_food.food_id)%>
+      <%   @total_price += recipe_food.quantity * food.price %>
+      <%=render 'shared/table', name:food.name, quantity: recipe_food.quantity, total_price: @total_price,recipe_id:@recipe.id,id:recipe_food.id%>
+      <%end%>
+    </tbody>
+    </table>
+  <% end %>
+</div>

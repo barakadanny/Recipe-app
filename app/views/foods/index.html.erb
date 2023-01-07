@@ -1,0 +1,29 @@
+<section>
+<h1 class="text-center">Foods</h1>
+<div class="d-flex justify-content-end mb-2">
+   <button class="btn btn-success text-end"> <%= link_to 'Add Food' , new_food_path , class:"text-decoration-none text-white" %> </button>
+</div>
+<% if @food.empty? %>
+    <h3 class="tex-center">You have no food yet! Add new food</h3>
+    <p class="text-center">Try adding from the Add food button below</p>
+ <% else %>
+<div class="border border-dark px-3">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Measurement_unit </th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Unit price</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+ <% @food.each do |fd| %>
+      <%= render 'food', food:fd %> 
+ <% end %>
+  </tbody>
+</table>
+ <%end%>
+</div>
+</section>

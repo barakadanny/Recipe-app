@@ -6,7 +6,7 @@
   <% @recipes.each do |recipe| %>
     <div class="border border-dark mb-2 pt-2">
         <div class="ps-5">
-          <h2><%= link_to recipe.name, recipe_path(recipe.id), class: "text-decoration-none" %></h2>
+          <h2><%= link_to recipe.name, recipe_path(recipe.id), class: "text-decoration-none text-primary-subtle" %></h2>
           <p class="fs-3">by: <%= recipe.user.name %></p>
         </div>
         <div class="text-end pe-5">

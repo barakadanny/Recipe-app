@@ -68,7 +68,7 @@ end
 
 gem 'devise'
 gem 'petergate', '~> 3.0'
-gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
+gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'jquery-rails'
 gem 'rails-controller-testing'

@@ -28,7 +28,9 @@ class RecipesController < ApplicationController
 
     @total_prices = {}
     @recipes.each do |recipe|
-      @total_prices[recipe.id] = recipe.foods.sum { |food| food.price * recipe.recipe_foods.find_by(food_id: food.id).quantity }
+      @total_prices[recipe.id] = recipe.foods.sum { |food|
+        food.price * recipe.recipe_foods.find_by(food_id: food.id).quantity
+      }
     end
   end
 

@@ -8,7 +8,7 @@ RSpec.describe RecipeFood, type: :model do
         recipe_food = RecipeFood.new(food: food)
         expect(recipe_food.food).to eq(food)
       end
-  
+
       it 'belongs to recipe' do
         recipe = Recipe.new
         recipe_food = RecipeFood.new(recipe: recipe)

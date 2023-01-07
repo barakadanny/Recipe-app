@@ -1,34 +1,34 @@
 class RecipeFoodsController < ApplicationController
-  before_action :setup, only: [:edit,:new,:destroy]
+  before_action :setup, only: [:edit, :new, :destroy]
   access user: :all, admin: :all
 
   def index
-    @recipe=Recipe.joins(:recipe_foods).find(params[:recipe_id])
-    @food=Recipe.joins(:foods).find(params[:recipe_id])
+    @recipe = Recipe.joins(:recipe_foods).find(params[:recipe_id])
+    @food = Recipe.joins(:foods).find(params[:recipe_id])
 
-    @ar_quantity=[]
-    @ar_name=[]
-    @ar_price=[]
+    @ar_quantity = []
+    @ar_name = []
+    @ar_price = []
 
-     @recipe.recipe_foods.each do |recipe_food| 
-       @ar_quantity<<recipe_food.quantity
-       food = Food.find(recipe_food.food_id) 
-       @ar_name<<food.name
-       total_price = recipe_food.quantity * food.price 
-       @ar_price<<total_price 
-      end 
+    @recipe.recipe_foods.each do |recipe_food|
+      @ar_quantity << recipe_food.quantity
+      food = Food.find(recipe_food.food_id)
+      @ar_name << food.name
+      total_price = recipe_food.quantity * food.price
+      @ar_price << total_price
+    end
   end
 
   def new
     @recipe = Recipe.find(params[:recipe_id])
     @foods = Food.where(user_id: current_user.id)
-    @food_items=selected(@foods)
+    @food_items = selected(@foods)
   end
 
   def edit
     @recipe = Recipe.find(params[:recipe_id])
     @foods = Food.where(user_id: current_user.id)
-    @food_items=selected(@foods)
+    @food_items = selected(@foods)
   end
 
   def create
@@ -67,16 +67,17 @@ class RecipeFoodsController < ApplicationController
       format.html { redirect_to @recipe, notice: 'Recipe food was successfully destroyed.' }
     end
   end
-  
- def show; end
+
+  def show; end
 
   private
+
   def recipe_food_params
     params
       .require(:recipe_food)
       .permit(:quantity, :recipe_id, :food_id)
   end
-  
+
   def selected(foods)
     food_items = []
     foods.each do |food|
@@ -87,7 +88,7 @@ class RecipeFoodsController < ApplicationController
 
   def setup
     @recipe_food = RecipeFood.find(params[:id])
-  end 
+  end
 
   helper_method :selected
 end

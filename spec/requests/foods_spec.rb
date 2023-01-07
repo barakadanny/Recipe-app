@@ -7,14 +7,14 @@ RSpec.describe 'Foods', type: :request do
       expect(response).to render_template "devise/shared/_links"
     end
   end
-  
+
   describe "redirect guest user trying to create a food" do
     it "renders the new template" do
       get 'http://www.example.com/login'
       expect(response).to render_template "devise/shared/_links"
     end
   end
-  
+
   describe 'GET index' do
     before(:each) do
       user = User.create name: 'Tom', email: 'tom@example.com', password: '123456'

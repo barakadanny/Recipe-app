@@ -20,10 +20,12 @@
     </tr>
     </thead>
     <tbody>
-    <% @recipe.foods.each do |food| %>
-      <% total_price = food.price * food.quantity %>
-      <%=render 'shared/table', name:food.name, quantity: food.quantity, total_price: total_price%>
-    <% end %>
+    <% @recipe.recipe_foods.each do |recipe_food|%>
+    <%@total_price=0%>
+      <%   food = Food.find(recipe_food.food_id)%>
+      <%   @total_price += recipe_food.quantity * food.price %>
+      <%=render 'shared/table', name:food.name, quantity: recipe_food.quantity, total_price: @total_price,recipe_id:@recipe.id,id:recipe_food.id%>
+      <%end%>
     </tbody>
     </table>
   <% end %>

@@ -38,24 +38,34 @@ class RecipeFoodsController < ApplicationController
     end
   end
 
-  def edit; end
-
-    def update
+  def edit
     @recipe = Recipe.find(params[:recipe_id])
     @foods = Food.where(user_id: current_user.id)
     @food_items=selected(@foods)
-    @recipe_foods = RecipeFood.new(recipe_food_params)
-    respond_to do |format|
-      if @recipe.user_id != current_user.id
-        format.html { redirect_to recipe_url(@recipe_foods.recipe_id), notice: 'You are not the owner of this recipe.' }
-      else
-        # rubocop:disable Style/IfInsideElse
-        if @recipe_foods.update(recipe_food_params)
-          format.html { redirect_to recipe_url(@recipe_foods.recipe_id), notice: 'Recipe Ingridents was successfully updated.' }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-        end
+  end
+
+  def update
+     @recipe_foods=RecipeFood.find(params[:id])
+     respond_to do |format|
+       # rubocop:disable Style/IfInsideElse
+       if @recipe_foods.update(recipe_food_params)
+         format.html { redirect_to recipe_url(@recipe_foods.recipe_id), notice: 'Recipe Ingridents was successfully updated.' }
+       else
+         format.html { render :edit, status: :unprocessable_entity }
+       end
         # rubocop:enable Style/IfInsideElse
+     end
+  end
+
+  def destroy
+    @recipe_foods = RecipeFood.find(params[:id])
+    @recipe=Recipe.find(params[:recipe_id])
+    if @recipe.user_id != current_user.id
+      redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.'
+    else
+      @recipe.destroy
+      respond_to do |format|
+        format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
       end
     end
   end

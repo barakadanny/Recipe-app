@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Foods', type: :request do
-  describe "GET #index" do
-    it "redirect guest user to login page" do
+  describe 'GET #index' do
+    it 'redirect guest user to login page' do
       get 'http://www.example.com/login'
-      expect(response).to render_template "devise/shared/_links"
+      expect(response).to render_template 'devise/shared/_links'
     end
   end
 
-  describe "redirect guest user trying to create a food" do
-    it "renders the new template" do
+  describe 'redirect guest user trying to create a food' do
+    it 'renders the new template' do
       get 'http://www.example.com/login'
-      expect(response).to render_template "devise/shared/_links"
+      expect(response).to render_template 'devise/shared/_links'
     end
   end
 

@@ -15,11 +15,9 @@ class RecipesController < ApplicationController
   end
 
   def show
-    begin
-      @recipe = Recipe.joins(:foods).find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      @recipe = Recipe.find(params[:id])
-    end
+    @recipe = Recipe.joins(:foods).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    @recipe = Recipe.find(params[:id])
   end
 
   def public_recipes
@@ -28,9 +26,9 @@ class RecipesController < ApplicationController
 
     @total_prices = {}
     @recipes.each do |recipe|
-      @total_prices[recipe.id] = recipe.foods.sum { |food|
+      @total_prices[recipe.id] = recipe.foods.sum do |food|
         food.price * recipe.recipe_foods.find_by(food_id: food.id).quantity
-      }
+      end
     end
   end
 
@@ -76,6 +74,7 @@ class RecipesController < ApplicationController
     if @recipe.user_id != current_user.id
       redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.'
     else
+      @recipe.recipe_foods.destroy_all
       @recipe.destroy
       respond_to do |format|
         format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }

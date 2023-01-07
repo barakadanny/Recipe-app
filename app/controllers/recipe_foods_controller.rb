@@ -1,5 +1,5 @@
 class RecipeFoodsController < ApplicationController
-  before_action :setup, only: [:edit, :new, :destroy]
+  before_action :setup, only: %i[edit destroy]
   access user: :all, admin: :all
 
   def index
@@ -83,7 +83,7 @@ class RecipeFoodsController < ApplicationController
     foods.each do |food|
       food_items << [food.name, food.id]
     end
-    return food_items
+    food_items
   end
 
   def setup

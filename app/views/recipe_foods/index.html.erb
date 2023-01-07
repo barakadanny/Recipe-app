@@ -1,24 +1,27 @@
 <div class="">
-    <h1 class="text-center">Shopping List</h1>
-    <div class="">
+    <h1 class="text-center mb-5">Shopping List</h1>
+    <div class="fw-bold d-flex justify-content-evenly">
      <p>Amount of food items to buy: <%=@food.foods.size%>
      </p>
-     <br>
-     <p>Total value of food needed: $</p>
+     <p>Total value of food needed: $ <%=@ar_price.sum()%></p><br>
     </div>
       <table class="table">
     <thead>
     <tr>
       <th scope="col">Food</th>
+      <%= render 'array', array:@ar_name%>
+    </tr>
+    <tr>
       <th scope="col">Quantity</th>
+      <%= render 'array', array:@ar_quantity%>
+    </tr>
+    <tr>
       <th scope="col">Value</th>
+      <%= render 'array', array:@ar_price%>
+
     </tr>
     </thead>
     <tbody>
-     <%= render 'array', array:@ar_quantity%><br>
-      <%= render 'array', array:@ar_name%><br>
-      <%= render 'array', array:@ar_price%>
-
   </tbody>
 </table>
 </div>

@@ -1,0 +1,10 @@
+<h2 class="text-center">create a new Food</h2>
+<div class="text-center">
+<%= form_with model: @food, url: foods_path, method: :post do |form| %>
+  <%= form.text_field :name, placeholder: 'Name' %><br><br>
+  <%= form.text_field :measurement_unit, placeholder: 'Measurement unit' %><br><br>
+  <%= form.text_field :quantity, placeholder: 'Quantity' %><br><br>
+  <%= form.text_field :price, placeholder: 'Price' %><br><br>
+  <%= form.submit 'Create Food', class:"btn btn-outline-dark"%>
+<% end %>
+</div>

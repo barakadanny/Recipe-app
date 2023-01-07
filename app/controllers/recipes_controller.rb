@@ -4,27 +4,40 @@ class RecipesController < ApplicationController
                                       update
                                       destroy]
 
-  # GET /recipes or /recipes.json
+  access all: [:index], user: :all, admin: :all
+
   def index
     @recipes = if current_user
-                 Recipe.where(public: true) + Recipe.where(user_id: current_user.id)
+                 Recipe.where(user_id: current_user.id)
                else
                  []
                end
   end
 
-  # GET /recipes/1 or /recipes/1.json
-  def show; end
+  def show
+    @recipe = Recipe.joins(:foods).find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    @recipe = Recipe.find(params[:id])
+  end
 
-  # GET /recipes/new
+  def public_recipes
+    @recipes = Recipe.includes(:user).where(public: true)
+    @recipe_counts = RecipeFood.group(:recipe_id).count
+
+    @total_prices = {}
+    @recipes.each do |recipe|
+      @total_prices[recipe.id] = recipe.foods.sum do |food|
+        food.price * recipe.recipe_foods.find_by(food_id: food.id).quantity
+      end
+    end
+  end
+
   def new
     @recipe = Recipe.new
   end
 
-  # GET /recipes/1/edit
   def edit; end
 
-  # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
@@ -61,6 +74,7 @@ class RecipesController < ApplicationController
     if @recipe.user_id != current_user.id
       redirect_to recipe_url(@recipe), notice: 'You are not the owner of this recipe.'
     else
+      @recipe.recipe_foods.destroy_all
       @recipe.destroy
       respond_to do |format|
         format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }

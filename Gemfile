@@ -66,5 +66,9 @@ group :test do
   gem 'webdrivers'
 end
 
+gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 gem 'devise'
+gem 'jquery-rails'
+gem 'petergate', '~> 3.0'
+gem 'rails-controller-testing'
 gem 'rubocop', '>= 1.0', '< 2.0'

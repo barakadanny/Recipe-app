@@ -1,21 +1,19 @@
-<p style="color: green"><%= notice %></p>
-<% if user_signed_in? %>
-    <%= button_to "Logout", destroy_user_session_path, method: :delete %>
-<% else %>
-    <%= link_to "Login", new_user_session_path %>
-    <%= link_to "Sign up", new_user_registration_path %>
-<% end %>
-
-<h1>Recipes</h1>
-
-<div id="recipes">
+ <h1 class="text-center pb-2">Recipes</h1>
+<div class="d-flex justify-content-end mb-2">
+ <% if user_signed_in? %>
+   <button  class="btn btn-success"><%= link_to "New recipe", new_recipe_path , class: "text-decoration-none text-white" %></button>
+ <% end %>
+ </div>
+<% if !@recipes.empty?%>
+ <div id="recipes" class="text-center">
   <% @recipes.each do |recipe| %>
-    <%= render recipe %>
-    <p>
-      <%= link_to "Show this recipe", recipe %>
-    </p>
+  <div class="border border-dark mb-3 d-flex gap-5">
+     <div id="<%= dom_id recipe %>" class="d-flex flex-column ps-5">
+         <p class="fs-2"><%= recipe.name %></p>
+          <p> <%= button_to "Destroy this recipe", recipe, method: :delete, class: "btn btn-dark btn-sm" %><br></p>
+      </div>
+     <p class="fs-3"><%= recipe.description %></p>
+  </div>
   <% end %>
-</div>
-<% if user_signed_in? %>
-  <%= link_to "New recipe", new_recipe_path %>
-<% end %>
+ </div>
+<%end%>
